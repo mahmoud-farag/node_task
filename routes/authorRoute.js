@@ -6,7 +6,7 @@ const {
   getAllAuthors,
   getSingleAuthor,
   updateAuthor,
-} = require("../controllers/AuthorController.js");
+} = require("../controllers/authorController.js");
 const AuthorRouter = express.Router();
 
 authorRouter.post("/", createNewAuthor);

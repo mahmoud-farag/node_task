@@ -11,8 +11,7 @@ const rateLimit = require("express-rate-limit");
 
 require("dotenv").config();
 
-const app = express(),
-  PORT = 4000 || process.env.PORT;
+const app = express();
 
 app.use(express.json());
 
