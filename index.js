@@ -15,9 +15,21 @@ const app = express();
 
 app.use(express.json());
 
+// sawgger docs
+const swaggerUI = require("swagger-ui-express");
+const YAML = require("yamljs");
+const swaggerDocument = YAML.load("./swagger.yaml");
+
 app.get("/", (req, res) => {
-  res.send("<h1>Your server up now</h1>");
+  res
+    .status(200)
+    .send(
+      '<h1>Hello, your API is ready for the Fire Works online</h1> <a href="/api-docs">DOCUMENTATION</a> '
+    );
 });
+
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
 app.use(require("./routes/auth.js"));
 app.use("/article", articleRouter);
 

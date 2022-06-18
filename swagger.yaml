@@ -1,0 +1,299 @@
+openapi: 3.0.0
+info:
+  title: node_task
+  contact: {}
+  version: "1.0"
+servers:
+  - url: https://node--task.herokuapp.com/
+    variables: {}
+  - url: https://node--task.herokuapp.com
+    variables: {}
+paths:
+  /article:
+    get:
+      tags:
+        - articles
+      summary: get_articles
+      operationId: get_articles
+      parameters:
+        - name: title
+          in: query
+          description: ""
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+        - url: https://node--task.herokuapp.com/
+          variables: {}
+    post:
+      tags:
+        - articles
+      summary: create_article
+      operationId: create_article
+      parameters:
+        - name: token
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/create_article_request"
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      servers:
+        - url: https://node--task.herokuapp.com/
+          variables: {}
+  /article/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The article ID
+    get:
+      tags:
+        - articles
+      summary: get_article
+      operationId: get_article
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+        - url: https://node--task.herokuapp.com/
+          variables: {}
+    delete:
+      tags:
+        - articles
+      summary: delete_article
+      operationId: delete_article
+      parameters:
+        - name: token
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      servers:
+        - url: https://node--task.herokuapp.com/
+          variables: {}
+    put:
+      tags:
+        - articles
+      summary: update_article
+      operationId: update_article
+      parameters:
+        - name: token
+          in: header
+          description: ""
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/update_article_request"
+            example:
+              title: kora2
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      servers:
+        - url: https://node--task.herokuapp.com/
+          variables: {}
+  /author/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The author ID
+    get:
+      tags:
+        - authors
+      summary: get_authors
+      operationId: get_authors
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+        - url: https://node--task.herokuapp.com/
+          variables: {}
+    post:
+      tags:
+        - authors
+      summary: create_authors
+      operationId: create_authors
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/create_authors_request"
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+        - url: https://node--task.herokuapp.com/
+          variables: {}
+
+    put:
+      tags:
+        - authors
+      summary: update_author
+      operationId: update_author
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/update_author_request"
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+        - url: https://node--task.herokuapp.com/
+          variables: {}
+    delete:
+      tags:
+        - authors
+      summary: delete_author
+      operationId: delete_author
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+        - url: https://node--task.herokuapp.com/
+          variables: {}
+  /login:
+    post:
+      tags:
+        - Auth
+      summary: login
+      operationId: login
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/loginrequest"
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+      servers:
+        - url: https://node--task.herokuapp.com
+          variables: {}
+    parameters: []
+components:
+  schemas:
+    create_article_request:
+      title: create_article_request
+      required:
+        - title
+        - body
+      type: object
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+    update_article_request:
+      title: update_article_request
+      required:
+        - title
+      type: object
+      properties:
+        title:
+          type: string
+    create_authors_request:
+      title: create_authors_request
+      required:
+        - name
+        - email
+        - jobTitle
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        jobTitle:
+          type: string
+    update_author_request:
+      title: update_author_request
+      required:
+        - jobTitle
+      type: object
+      properties:
+        jobTitle:
+          type: string
+    loginrequest:
+      title: loginrequest
+      required:
+        - email
+      type: object
+      properties:
+        email:
+          type: string
+tags:
+  - name: articles
+  - name: authors
+  - name: Auth
+    description: ""
