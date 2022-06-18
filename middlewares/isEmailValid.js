@@ -4,4 +4,5 @@ const REGEX =
 const isEmailValid = (email) => {
   return REGEX.test(email);
 };
-exports.module = isEmailValid;
+
+module.exports = isEmailValid;
