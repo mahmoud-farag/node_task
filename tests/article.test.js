@@ -1,5 +1,5 @@
-const AuthorRouter = require("../routes/authorRoute");
-const Author = require("./../models/authorModel.js");
+const articleRouter = require("../routes/articleRoute");
+const Article = require("./../models/articleModel");
 const request = require("supertest");
 const expect = require("expect");
 const db = require("../db/connection.js");
@@ -7,29 +7,27 @@ const express = require("express");
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
-app.use("author", AuthorRouter);
+app.use("article", articleRouter);
 
-let dummyAuthor = [
-  {
-    name: "ali",
-    jobTitle: "devOps",
-    email: "ali@gmail.com",
-  },
-];
+let dummyArticle = {
+  title: "devOps",
+  body: "My target is to design elegant contents",
+};
 
 beforeEach(async function (done) {
   try {
-    let result = await Author.remove({});
-    User.insertMany(dummyAuthor);
+    let result = await Article.remove({});
+    User.insertMany(dummyArticle);
   } catch (err) {
     return done(err);
   }
 });
-// ________________Author Route___________________
-describe("Get /author/", function (done) {
-  it("return all existing authors ", function (done) {
+
+// ________________Article Route___________________
+describe("Get /article/", function (done) {
+  it("return all existing article ", function (done) {
     request(app)
-      .get("/author")
+      .get("/article")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .expect(200)
@@ -43,10 +41,10 @@ describe("Get /author/", function (done) {
   }).timeout(20000);
 });
 
-describe("Post /author/", function () {
-  it("Create new Author ", function (done) {
+describe("Post /article/", function () {
+  it("Create new article ", function (done) {
     request(app)
-      .post("/author")
+      .post("/article/")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .expect(200)
@@ -57,10 +55,10 @@ describe("Post /author/", function () {
   });
 });
 
-describe("Get author/:id", () => {
-  it("get Author by ID", (done) => {
+describe("Get article/:id", () => {
+  it("get article by ID", (done) => {
     request(app)
-      .get("/author/:id")
+      .get("/article/:id")
       .end(function (err, res) {
         if (err) return done(err);
         done();
@@ -68,10 +66,10 @@ describe("Get author/:id", () => {
   });
 });
 
-describe("Delete author/:id", () => {
-  it("Delete target author by ID", (done) => {
+describe("Delete article/:id", () => {
+  it("Delete target article by ID", (done) => {
     request(app)
-      .delete("/author/:id")
+      .delete("/article/:id")
       .end(function (err, res) {
         if (err) return done(err);
         done();
@@ -79,10 +77,10 @@ describe("Delete author/:id", () => {
   });
 });
 
-describe("Put author/:id", () => {
-  it("update author by ID", (done) => {
+describe("Put article/:id", () => {
+  it("update article by ID", (done) => {
     request(app)
-      .put("/author/:id")
+      .put("/article/:id")
 
       .end(function (err, res) {
         if (err) return done(err);
